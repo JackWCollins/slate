@@ -228,6 +228,9 @@
             <a href="#makes" class="toc-h1 toc-link" data-title="makes">Makes</a>
               <ul class="toc-list-h2">
                   <li>
+                    <a href="#make-object" class="toc-h2 toc-link" data-title="make-object">Make object</a>
+                  </li>
+                  <li>
                     <a href="#get-all-makes" class="toc-h2 toc-link" data-title="get-all-makes">Get All Makes</a>
                   </li>
                   <li>
@@ -247,6 +250,9 @@
           <li>
             <a href="#models" class="toc-h1 toc-link" data-title="models">Models</a>
               <ul class="toc-list-h2">
+                  <li>
+                    <a href="#model-object" class="toc-h2 toc-link" data-title="model-object">Model object</a>
+                  </li>
                   <li>
                     <a href="#get-all-models" class="toc-h2 toc-link" data-title="get-all-models">Get All Models</a>
                   </li>
@@ -268,6 +274,9 @@
             <a href="#options" class="toc-h1 toc-link" data-title="options">Options</a>
               <ul class="toc-list-h2">
                   <li>
+                    <a href="#option-object" class="toc-h2 toc-link" data-title="option-object">Option object</a>
+                  </li>
+                  <li>
                     <a href="#get-all-options" class="toc-h2 toc-link" data-title="get-all-options">Get All Options</a>
                   </li>
                   <li>
@@ -287,6 +296,9 @@
           <li>
             <a href="#vehicles" class="toc-h1 toc-link" data-title="vehicles">Vehicles</a>
               <ul class="toc-list-h2">
+                  <li>
+                    <a href="#vehicle-object" class="toc-h2 toc-link" data-title="vehicle-object">Vehicle object</a>
+                  </li>
                   <li>
                     <a href="#get-all-vehicles" class="toc-h2 toc-link" data-title="get-all-vehicles">Get All Vehicles</a>
                   </li>
@@ -354,7 +366,35 @@ curl <span class="s2">"api_endpoint_here"</span>
 <p>TurnSignal expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
 
 <p><code>Authorization: turnsignal</code></p>
-<h1 id='makes'>Makes</h1><h2 id='get-all-makes'>Get All Makes</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://turn-signal.herokuapp.com/makes"</span>
+<h1 id='makes'>Makes</h1><h2 id='make-object'>Make object</h2>
+<p>This object defines the vehicle <code>make</code>, such as Ford, Nissan, Subaru, etc. This object can have many <code>models</code>. </p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="mi">95</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="s2">"Mazda"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"models"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">343</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ZX5"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='object-attributes'>Object attributes</h3>
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>The primary key of the object</td>
+</tr>
+<tr>
+<td>name</td>
+<td>The name of the make</td>
+</tr>
+</tbody></table>
+<h2 id='get-all-makes'>Get All Makes</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://turn-signal.herokuapp.com/makes"</span>
   -H <span class="s2">"Authorization: turnsignal"</span>
 </code></pre>
 <blockquote>
@@ -425,7 +465,7 @@ curl <span class="s2">"api_endpoint_here"</span>
   -H <span class="s2">"Authorization: turnsignal"</span>
   -H <span class="s2">"Content-Type: application/json"</span>
   -X POST
-  -d <span class="s1">'{"name":"Tesla"}'</span>
+  -d <span class="s1">'{"make": {"name":"Tesla"}}'</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -452,7 +492,7 @@ curl <span class="s2">"api_endpoint_here"</span>
   -H <span class="s2">"Authorization: turnsignal"</span>
   -H <span class="s2">"Content-Type: application/json"</span>
   -X PATCH
-  -d <span class="s1">'{"name":"Tesla 2"}'</span>
+  -d <span class="s1">'{"make": {"name":"Tesla 2"}}'</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -506,7 +546,42 @@ curl <span class="s2">"api_endpoint_here"</span>
 <td>The ID of the make to delete</td>
 </tr>
 </tbody></table>
-<h1 id='models'>Models</h1><h2 id='get-all-models'>Get All Models</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://turn-signal.herokuapp.com/models"</span>
+<h1 id='models'>Models</h1><h2 id='model-object'>Model object</h2>
+<p>This object defines the vehicle <code>model</code>. For example, the Subaru <code>make</code> would have <code>models</code> of Outback, Forester, Impreza, etc.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">355</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Forester"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"make"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">37</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Subary"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"options"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='object-attributes-2'>Object attributes</h3>
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>The primary key of the object</td>
+</tr>
+<tr>
+<td>name</td>
+<td>The name of the model</td>
+</tr>
+<tr>
+<td>make</td>
+<td>The <code>make</code> object for the model</td>
+</tr>
+<tr>
+<td>options</td>
+<td>The available <code>options</code> for this model.</td>
+</tr>
+</tbody></table>
+<h2 id='get-all-models'>Get All Models</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://turn-signal.herokuapp.com/models"</span>
   -H <span class="s2">"Authorization: turnsignal"</span>
 </code></pre>
 <blockquote>
@@ -585,7 +660,7 @@ curl <span class="s2">"api_endpoint_here"</span>
   -H <span class="s2">"Authorization: turnsignal"</span>
   -H <span class="s2">"Content-Type: application/json"</span>
   -X POST
-  -d <span class="s1">'{"name":"Roadster", "model_id":97}'</span>
+  -d <span class="s1">'{"model": {"name":"Roadster", "make_id":97}}'</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -620,7 +695,7 @@ curl <span class="s2">"api_endpoint_here"</span>
   -H <span class="s2">"Authorization: turnsignal"</span>
   -H <span class="s2">"Content-Type: application/json"</span>
   -X PATCH
-  -d <span class="s1">'{"name":"Roadster 2"}'</span>
+  -d <span class="s1">'{"model": {"name":"Roadster 2"}}'</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -682,7 +757,34 @@ curl <span class="s2">"api_endpoint_here"</span>
 <td>The ID of the model to delete</td>
 </tr>
 </tbody></table>
-<h1 id='options'>Options</h1><h2 id='get-all-options'>Get All Options</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://turn-signal.herokuapp.com/options"</span>
+<h1 id='options'>Options</h1><h2 id='option-object'>Option object</h2>
+<p>This object defines the available options that a vehicle or model could have. For example, All wheel drive, sun roof, etc.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">355</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Forester"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"make"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">37</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Subary"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"options"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='object-attributes-3'>Object attributes</h3>
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>The primary key of the object</td>
+</tr>
+<tr>
+<td>name</td>
+<td>The name of the option</td>
+</tr>
+</tbody></table>
+<h2 id='get-all-options'>Get All Options</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://turn-signal.herokuapp.com/options"</span>
   -H <span class="s2">"Authorization: turnsignal"</span>
 </code></pre>
 <blockquote>
@@ -746,7 +848,7 @@ curl <span class="s2">"api_endpoint_here"</span>
   -H <span class="s2">"Authorization: turnsignal"</span>
   -H <span class="s2">"Content-Type: application/json"</span>
   -X POST
-  -d <span class="s1">'{"name":"Tesla"}'</span>
+  -d <span class="s1">'{"option": {"name":"Tesla"}}'</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -773,7 +875,7 @@ curl <span class="s2">"api_endpoint_here"</span>
   -H <span class="s2">"Authorization: turnsignal"</span>
   -H <span class="s2">"Content-Type: application/json"</span>
   -X PATCH
-  -d <span class="s1">'{"name":"All wheel DRIVE!!!"}'</span>
+  -d <span class="s1">'{"option": {"name":"All wheel DRIVE!!!"}}'</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -827,7 +929,51 @@ curl <span class="s2">"api_endpoint_here"</span>
 <td>The ID of the option to delete</td>
 </tr>
 </tbody></table>
-<h1 id='vehicles'>Vehicles</h1><h2 id='get-all-vehicles'>Get All Vehicles</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://turn-signal.herokuapp.com/vehicles"</span>
+<h1 id='vehicles'>Vehicles</h1><h2 id='vehicle-object'>Vehicle object</h2>
+<p>This object defines a vehicle that a user owns. </p>
+<pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Awesome"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"year"</span><span class="p">:</span><span class="w"> </span><span class="mi">2009</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"make"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">13</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Suzuki"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"model"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">70</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Grand Vitara"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"options"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='object-attributes-4'>Object attributes</h3>
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>The primary key of the object</td>
+</tr>
+<tr>
+<td>description</td>
+<td>The user&#39;s description of the vehicle</td>
+</tr>
+<tr>
+<td>year</td>
+<td>The year of manufacture for the user</td>
+</tr>
+<tr>
+<td>make</td>
+<td>The <code>make</code> of the vehicle</td>
+</tr>
+<tr>
+<td>model</td>
+<td>The <code>model</code> of the vehicle. The <code>model</code> must belong to the vehicle <code>make</code>.</td>
+</tr>
+</tbody></table>
+<h2 id='get-all-vehicles'>Get All Vehicles</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://turn-signal.herokuapp.com/vehicles"</span>
   -H <span class="s2">"Authorization: turnsignal"</span>
 </code></pre>
 <blockquote>
@@ -907,7 +1053,7 @@ curl <span class="s2">"api_endpoint_here"</span>
   -H <span class="s2">"Authorization: turnsignal"</span>
   -H <span class="s2">"Content-Type: application/json"</span>
   -X POST
-  -d <span class="s1">'{"year": 2009, "description": "Awesome car", "make_id": 13, "model_id": 70}'</span>
+  -d <span class="s1">'{"vehicle": {"year": 2009, "description": "Awesome car", "make_id": 13, "model_id": 70}}'</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -960,7 +1106,7 @@ curl <span class="s2">"api_endpoint_here"</span>
   -H <span class="s2">"Authorization: turnsignal"</span>
   -H <span class="s2">"Content-Type: application/json"</span>
   -X PATCH
-  -d <span class="s1">'{"name":"Roadster 2"}'</span>
+  -d <span class="s1">'{"vehicle": {"name":"Roadster 2"}}'</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1034,7 +1180,7 @@ curl <span class="s2">"api_endpoint_here"</span>
   -H <span class="s2">"Authorization: turnsignal"</span>
   -H <span class="s2">"Content-Type: application/json"</span>
   -X POST
-  -d <span class="s1">'{"vehicle_id":2, "option_id":4}'</span>
+  -d <span class="s1">'{"vehicle_option": {"vehicle_id":2, "option_id":4}}'</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1099,7 +1245,7 @@ curl <span class="s2">"api_endpoint_here"</span>
   -H <span class="s2">"Authorization: turnsignal"</span>
   -H <span class="s2">"Content-Type: application/json"</span>
   -X POST
-  -d <span class="s1">'{"model_id":2, "option_id":4}'</span>
+  -d <span class="s1">'{"model_option": {"model_id":2, "option_id":4}}'</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1125,8 +1271,8 @@ curl <span class="s2">"api_endpoint_here"</span>
 </tr>
 </thead><tbody>
 <tr>
-<td>vehicle_id</td>
-<td>The ID of the vehicle.</td>
+<td>model_id</td>
+<td>The ID of the model.</td>
 </tr>
 <tr>
 <td>option_id</td>
