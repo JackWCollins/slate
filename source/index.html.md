@@ -40,6 +40,30 @@ TurnSignal expects for the API key to be included in all API requests to the ser
 
 # Makes
 
+## Make object
+
+This object defines the vehicle `make`, such as Ford, Nissan, Subaru, etc. This object can have many `models`. 
+
+```json
+{
+  "id":95,
+  "name":"Mazda",
+  "models": [
+    {
+      "id": 343,
+      "name": "ZX5"
+    }
+  ]
+}
+```
+
+### Object attributes
+
+Attribute  | Description
+---------  | -----------
+id | The primary key of the object
+name | The name of the make
+
 ## Get All Makes
 
 ```shell
@@ -117,7 +141,7 @@ curl "https://turn-signal.herokuapp.com/makes"
   -H "Authorization: turnsignal"
   -H "Content-Type: application/json"
   -X POST
-  -d '{"name":"Tesla"}'
+  -d '{"make": {"name":"Tesla"}}'
 ```
 
 > The above command returns JSON structured like this:
@@ -144,7 +168,7 @@ curl "https://turn-signal.herokuapp.com/makes/101"
   -H "Authorization: turnsignal"
   -H "Content-Type: application/json"
   -X PATCH
-  -d '{"name":"Tesla 2"}'
+  -d '{"make": {"name":"Tesla 2"}}'
 ```
 
 > The above command returns JSON structured like this:
@@ -196,6 +220,31 @@ ID | The ID of the make to delete
 
 
 # Models
+
+## Model object
+
+This object defines the vehicle `model`. For example, the Subaru `make` would have `models` of Outback, Forester, Impreza, etc.
+
+```json
+{
+  "id": 355,
+  "name": "Forester",
+  "make": {
+      "id": 37,
+      "name": "Subary"
+  },
+  "options": []
+}
+```
+
+### Object attributes
+
+Attribute  | Description
+---------  | -----------
+id | The primary key of the object
+name | The name of the model
+make | The `make` object for the model
+options | The available `options` for this model.
 
 ## Get All Models
 
@@ -282,7 +331,7 @@ curl "https://turn-signal.herokuapp.com/models"
   -H "Authorization: turnsignal"
   -H "Content-Type: application/json"
   -X POST
-  -d '{"name":"Roadster", "model_id":97}'
+  -d '{"model": {"name":"Roadster", "make_id":97}}'
 ```
 
 > The above command returns JSON structured like this:
@@ -314,7 +363,7 @@ curl "https://turn-signal.herokuapp.com/models/101"
   -H "Authorization: turnsignal"
   -H "Content-Type: application/json"
   -X PATCH
-  -d '{"name":"Roadster 2"}'
+  -d '{"model": {"name":"Roadster 2"}}'
 ```
 
 > The above command returns JSON structured like this:
@@ -370,6 +419,29 @@ Parameter | Description
 ID | The ID of the model to delete
 
 # Options
+
+## Option object
+
+This object defines the available options that a vehicle or model could have. For example, All wheel drive, sun roof, etc.
+
+```json
+{
+  "id": 355,
+  "name": "Forester",
+  "make": {
+      "id": 37,
+      "name": "Subary"
+  },
+  "options": []
+}
+```
+
+### Object attributes
+
+Attribute  | Description
+---------  | -----------
+id | The primary key of the object
+name | The name of the option
 
 ## Get All Options
 
@@ -441,7 +513,7 @@ curl "https://turn-signal.herokuapp.com/options"
   -H "Authorization: turnsignal"
   -H "Content-Type: application/json"
   -X POST
-  -d '{"name":"Tesla"}'
+  -d '{"option": {"name":"Tesla"}}'
 ```
 
 > The above command returns JSON structured like this:
@@ -468,7 +540,7 @@ curl "https://turn-signal.herokuapp.com/options/101"
   -H "Authorization: turnsignal"
   -H "Content-Type: application/json"
   -X PATCH
-  -d '{"name":"All wheel DRIVE!!!"}'
+  -d '{"option": {"name":"All wheel DRIVE!!!"}}'
 ```
 
 > The above command returns JSON structured like this:
@@ -519,6 +591,38 @@ Parameter | Description
 ID | The ID of the option to delete
 
 # Vehicles
+
+
+## Vehicle object
+
+This object defines a vehicle that a user owns. 
+
+```json
+  {
+    "id": 1,
+    "description": "Awesome",
+    "year": 2009,
+    "make": {
+        "id": 13,
+        "name": "Suzuki"
+    },
+    "model": {
+        "id": 70,
+        "name": "Grand Vitara"
+    },
+    "options": []
+  }
+```
+
+### Object attributes
+
+Attribute  | Description
+---------  | -----------
+id | The primary key of the object
+description | The user's description of the vehicle
+year | The year of manufacture for the user
+make | The `make` of the vehicle
+model | The `model` of the vehicle. The `model` must belong to the vehicle `make`. 
 
 ## Get All Vehicles
 
@@ -606,7 +710,7 @@ curl "https://turn-signal.herokuapp.com/vehicles"
   -H "Authorization: turnsignal"
   -H "Content-Type: application/json"
   -X POST
-  -d '{"year": 2009, "description": "Awesome car", "make_id": 13, "model_id": 70}'
+  -d '{"vehicle": {"year": 2009, "description": "Awesome car", "make_id": 13, "model_id": 70}}'
 ```
 
 > The above command returns JSON structured like this:
@@ -647,7 +751,7 @@ curl "https://turn-signal.herokuapp.com/vehicles/101"
   -H "Authorization: turnsignal"
   -H "Content-Type: application/json"
   -X PATCH
-  -d '{"name":"Roadster 2"}'
+  -d '{"vehicle": {"name":"Roadster 2"}}'
 ```
 
 > The above command returns JSON structured like this:
@@ -714,7 +818,7 @@ curl "https://turn-signal.herokuapp.com/vehicle_options"
   -H "Authorization: turnsignal"
   -H "Content-Type: application/json"
   -X POST
-  -d '{"vehicle_id":2, "option_id":4}'
+  -d '{"vehicle_option": {"vehicle_id":2, "option_id":4}}'
 ```
 
 > The above command returns JSON structured like this:
@@ -781,7 +885,7 @@ curl "https://turn-signal.herokuapp.com/model_options"
   -H "Authorization: turnsignal"
   -H "Content-Type: application/json"
   -X POST
-  -d '{"model_id":2, "option_id":4}'
+  -d '{"model_option": {"model_id":2, "option_id":4}}'
 ```
 
 > The above command returns JSON structured like this:
@@ -806,7 +910,7 @@ This endpoint creates a specific model_option. Use this if you want to add an ex
 
 Parameter | Description
 --------- | -----------
-vehicle_id | The ID of the vehicle.
+model_id | The ID of the model.
 option_id | The ID of the option.
 
 ## Delete a Model Option
