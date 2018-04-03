@@ -17,10 +17,6 @@ search: true
 
 Welcome to the TurnSignal API! This is a sample coding project - the source code is located [here](https://github.com/lord/slate). You can use our API to access TurnSignal API endpoints, which can get information on various vehicles, makes, models, options.
 
-
-
-This example API documentation page was created with [Slate](https://github.com/lord/slate). Feel free to edit it and use it as a base for your own API's documentation.
-
 # Authentication
 
 > To authorize, use this code:
